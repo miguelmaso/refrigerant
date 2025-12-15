@@ -2,7 +2,6 @@ import CoolProp.CoolProp as CP
 import matplotlib.pyplot as plt
 import numpy as np
 from ph import isochoric, isoentropic, isotherm
-from plots import add_label
 
 fluido = 'CO2'
 T_Kelvin = 273.15
@@ -47,7 +46,7 @@ temperaturas = [-40, -20, 0, 20, 31.1, 60, 100]
 for T_c in temperaturas:
     h_iso, p_iso = isotherm(fluido, T_c)
     plt.plot(h_iso, p_iso, 'b--', linewidth=0.5, alpha=0.6)
-    add_label(h_iso, p_iso, -1, f'{T_c}ºC', color='b', fontsize=7)
+    plt.text(h_iso[-1], p_iso[-1]-10, f'{T_c}ºC', color='b', fontsize=7, ha='center', va='center')
 
 
 # --- 3. LÍNEAS ISENTRÓPICAS (Entropía Constante) ---
@@ -57,7 +56,7 @@ for s in entropias:
     h_s, p_s = isoentropic(fluido, s)
     plt.plot(h_s, p_s, color='orange', linestyle='-', linewidth=0.8, alpha=0.8)
     if len(h_s) > 0:
-        add_label(h_s, p_s, -1, f's={s}', color='orange', fontsize=7)
+        plt.text(h_s[-1], p_s[-1]-10, f's={s}', color='orange', fontsize=7, ha='center', va='center')
 
 
 # --- 4. LÍNEAS DE VOLUMEN ESPECÍFICO CONSTANTE (Isocoras) ---
@@ -67,7 +66,7 @@ for v in volumenes:
     h_v, p_v = isochoric(fluido, v)
     plt.plot(h_v, p_v, color='green', linestyle=':', linewidth=0.8, alpha=0.7)
     if len(h_v) > 0:
-        add_label(h_v, p_v, 0, f'v={v}', color='green', fontsize=7)
+        plt.text(h_v[0], p_v[0]+.1, f'v={v}', color='green', fontsize=7, ha='center', va='center')
 
 
 # --- 5. FORMATO FINAL ---
